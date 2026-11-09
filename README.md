@@ -74,6 +74,36 @@ copy .env.example .env
 .venv\Scripts\python agente_ventas.py
 ```
 
+## Versión web
+
+Además de la terminal, el agente tiene una interfaz web de chat (HTML y
+JavaScript sin frameworks, con backend en FastAPI). Arráncala con:
+
+```sh
+python servidor_web.py
+```
+
+(sin contenedor: `.venv\Scripts\python servidor_web.py` en Windows o
+`./.venv/bin/python servidor_web.py` en macOS y Linux) y abre
+<http://127.0.0.1:8000> en el navegador.
+
+Las respuestas aparecen a medida que el modelo las escribe, cada consulta SQL
+que lanza el agente se puede desplegar para verla, y las preguntas de seguimiento
+conservan el contexto hasta que pulses **Nueva conversación**.
+
+Opciones: `--port` para otro puerto, `--modelo` para otro modelo y `--host` para
+la dirección de escucha. Por defecto solo escucha en este equipo (`127.0.0.1`);
+cada pregunta consume crédito de tu clave de OpenRouter, así que piénsalo antes
+de usar `--host 0.0.0.0`, que la deja accesible desde la red.
+
+Estructura:
+
+- `servidor_web.py`: API (`POST /api/chat` con respuesta en streaming SSE,
+  `GET /api/config`, `DELETE /api/conversations/{id}`) y servidor de `web/`.
+- `web/index.html`, `web/styles.css`, `web/app.js`: la interfaz.
+- `agente_ventas.py`: lógica compartida (herramienta SQL, prompt y creación de
+  la sesión) y la versión de terminal.
+
 ## Detalles
 
 Usa OpenRouter con el modelo `deepseek/deepseek-v4.1-flash`; puedes elegir otro
@@ -89,4 +119,4 @@ desarrollo ya lo trae predescargado).
 La base SQLite se abre en modo de solo lectura y se devuelven como máximo 100
 filas por consulta.
 
-La versión con interfaz web vive en la rama `codex/web`.
+Existe otra versión web anterior en la rama `codex/web`.

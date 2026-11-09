@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agente de ventas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">📊</span>
+      <div>
+        <h1>Agente de ventas</h1>
+        <p class="subtitle">Pregunta en lenguaje natural sobre <code>sales_data.db</code> · <span id="model">…</span></p>
+      </div>
+    </div>
+    <button id="new-chat" class="ghost" type="button">Nueva conversación</button>
+  </header>
+
+  <main id="chat" class="chat" aria-live="polite">
+    <section id="welcome" class="welcome">
+      <h2>¿Qué quieres saber de tus ventas?</h2>
+      <p>El agente traduce tu pregunta a SQL, consulta la base de datos en solo lectura y te responde con los resultados.</p>
+      <div id="examples" class="examples"></div>
+    </section>
+  </main>
+
+  <form id="composer" class="composer">
+    <textarea id="input" rows="1" placeholder="Escribe tu pregunta…" aria-label="Pregunta" required></textarea>
+    <button id="send" type="submit">Enviar</button>
+  </form>
+
+  <script src="app.js"></script>
+</body>
+</html>
